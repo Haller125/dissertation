@@ -1,0 +1,64 @@
+- name: ally_request
+  text: asks to ally with
+  intent:
+    pred_type: relationship
+    subtype: ally
+    is_single: false
+  preconditions:
+    - constant: 1.0
+    - has:
+        pred_type: trait
+        subtype: kind
+        is_single: true
+    - has_not:
+        pred_type: relationship
+        subtype: enemy
+        is_single: false
+  initiator_irs:
+    name: initiator_irs
+    rules:
+      - name: default_rule
+        weight: 1.0
+        conditions:
+          - constant: 1.0
+      - name: backup_rule
+        weight: 0.5
+        conditions:
+          - has_not:
+              pred_type: relationship
+              subtype: rival
+              is_single: false
+  responder_irs:
+    name: responder_irs
+    rules:
+      - name: default_rule
+        weight: 1.0
+        conditions:
+          - constant: 1.0
+      - name: distrust_rule
+        weight: 0.2
+        conditions:
+          - has:
+              pred_type: trait
+              subtype: suspicious
+              is_single: true
+  effects:
+    accept:
+      - add:
+          pred_type: relationship
+          subtype: ally
+          is_single: false
+          probability: 1.0
+      - remove:
+          pred_type: relationship
+          subtype: enemy
+          is_single: false
+    reject:
+      - remove:
+          pred_type: relationship
+          subtype: ally
+          is_single: false
+      - add:
+          pred_type: relationship
+          subtype: rival
+          is_single: false

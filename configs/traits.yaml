@@ -1,0 +1,19 @@
+probabilities:
+  shy: 0.20
+  outgoing: 0.25
+  kind: 0.15
+  grumpy: 0.35
+  generous: 0.30
+  selfish: 0.15
+  flirty: 0.20
+  loyal: 0.30
+  hot-tempered: 0.10
+  forgiving: 0.25
+  gossipy: 0.15
+opposites:
+  shy: [outgoing]
+  outgoing: [shy]
+  kind: [grumpy, selfish]
+  grumpy: [kind]
+  generous: [selfish]
+  selfish: [generous, kind]
